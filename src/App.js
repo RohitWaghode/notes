@@ -1,25 +1,79 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./style.css";
 
-function App() {
+const App = () => {
+  const [notesText, setNotesText] = useState("");
+  const [notes, setNotes] = useState(() => {
+    return JSON.parse(localStorage.getItem("notes")) || [];
+  });
+
+  // console.log("notes", notes);
+  // useEffect(() => {
+  //   const storedNotes = JSON.parse(localStorage.getItem("notes"));
+  //   console.log("storedNotes", storedNotes);
+  //   if (storedNotes) {
+  //     setNotes(storedNotes);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+    console.log("notes", notes);
+  }, [notes]);
+
+  const addNote = () => {
+    if (!notesText.trim()) return;
+
+    const newNote = {
+      text: notesText,
+      date: new Date().toLocaleString(),
+    };
+    setNotes([...notes, newNote]);
+    setNotesText("");
+  };
+
+  const deleteNotes = (i) => {
+    const updateNotes = [...notes];
+    updateNotes.splice(i, 1);
+    setNotes(updateNotes);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Notes</h1>
+      <input
+        type="text"
+        value={notesText}
+        placeholder="Write a Notes here..."
+        onChange={(e) => {
+          setNotesText(e.target.value);
+        }}
+      />
+      <button onClick={addNote}>Add Note</button>
+      <table>
+        <thead>
+          <tr>
+            <th>Sr.NO</th>
+            <th>Notes</th>
+            <th>Date</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {notes.map((note, index) => (
+            <tr key={index}>
+              <td>{index + 1}</td>
+              <td>{note.text}</td>
+              <td>{note.date}</td>
+              <td>
+                <button onClick={() => deleteNotes(index)}>Delete Notes</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
-}
+};
 
 export default App;

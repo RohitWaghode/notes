@@ -1,0 +1,54 @@
+body {
+  background-color: #ccc;
+}
+h1 {
+  margin: 50px 0px 10px 250px;
+}
+input {
+  padding: 10px;
+  margin: 10px;
+  width: 40%;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background-color: #a8a1a6;
+}
+
+button {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #a8a1a6;
+}
+
+/* button:hover {
+  border: 1px solid blue;
+} */
+
+table {
+  width: 60%;
+  margin: 8px;
+  flex-direction: row;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 10px;
+  text-align: left;
+}
+
+th:first-child,
+td:first-child {
+  width: 10px;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 300px;
+}
+
+th:last-child,
+td:last-child {
+  width: 100px;
+}
